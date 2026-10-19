@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLAUDIA WILSON — Luxury Apparel Atelier South Africa</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        beigeBg: '#FAF6F0',
+                        creamCard: '#F3ECE1',
+                        sandBorder: '#E0D4C3',
+                        mochaText: '#362A24',
+                        caramelAccent: '#B87A4B',
+                        terracotta: '#A65335',
+                        darkEspresso: '#1F1714',
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { background-color: #FAF6F0; color: #362A24; font-family: 'Inter', sans-serif; }
+        .font-serif-title { font-family: 'Cormorant Garamond', serif; }
+        .font-mono-code { font-family: 'Space Grotesk', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #F3ECE1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #B87A4B; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-beigeBg text-mochaText selection:bg-caramelAccent selection:text-white custom-scrollbar">
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-darkEspresso text-beigeBg px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-xs font-mono-code">
+        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+        <span id="toastMessage">Success notification message</span>
+    </div>
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="bg-darkEspresso text-beigeBg py-2 px-4 text-xs font-mono-code flex justify-between items-center tracking-wider uppercase">
+        <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span>Complimentary Courier Across South Africa on Orders Over R850</span>
+        </div>
+        <div class="hidden md:flex gap-6 text-[11px] text-sandBorder">
+            <span>🇿🇦 The Courier Guy / DHL SA</span>
+            <span>•</span>
+            <span>PayFast & Ozow Secure</span>
+        </div>
+    </div>
+
+    <!-- MAIN NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-beigeBg/90 backdrop-blur-md border-b border-sandBorder px-6 lg:px-12 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-8">
+            <a href="#" class="font-serif-title text-2xl lg:text-3xl font-bold tracking-tight text-darkEspresso">
+                CLAUDIA WILSON
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-xs uppercase tracking-widest font-mono-code">
+                <a href="#catalog" onclick="filterCategory('all')" class="hover:text-caramelAccent transition">Collection</a>
+                <a href="#catalog" onclick="filterCategory('Dresses')" class="hover:text-caramelAccent transition">Dresses</a>
+                <a href="#catalog" onclick="filterCategory('Tops')" class="hover:text-caramelAccent transition">Tops</a>
+                <a href="#catalog" onclick="filterCategory('Outerwear')" class="hover:text-caramelAccent transition">Outerwear</a>
+                <button onclick="openSizeGuide()" class="hover:text-caramelAccent transition">Size Guide</button>
+            </nav>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <button onclick="toggleCartModal()" class="bg-darkEspresso text-beigeBg px-4 py-2.5 rounded-full text-xs font-mono-code uppercase tracking-wider flex items-center gap-2 hover:bg-caramelAccent transition shadow-sm">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                <span>Bag</span>
+                <span id="cartCount" class="bg-caramelAccent text-white px-2 py-0.5 rounded-full text-[10px] font-bold">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-creamCard border-b border-sandBorder py-16 lg:py-24 px-6 lg:px-12 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 space-y-6">
+                <span class="inline-block bg-caramelAccent/10 text-caramelAccent border border-caramelAccent/30 text-xs font-mono-code px-3 py-1 uppercase tracking-widest rounded-full">
+                    Johannesburg Design Atelier
+                </span>
+                <h1 class="font-serif-title text-5xl sm:text-6xl lg:text-7xl text-darkEspresso leading-none">
+                    Uncompromising Style, <br>
+                    <span class="italic font-normal text-terracotta">Accessible Luxury.</span>
+                </h1>
+                <p class="text-mochaText/80 text-sm md:text-base max-w-lg leading-relaxed font-body">
+                    Meticulously tailored ready-to-wear clothing designed for the modern lifestyle. Direct payouts to your South African business account with automated phone notifications.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="#catalog" class="bg-darkEspresso text-beigeBg font-mono-code text-xs uppercase tracking-widest px-8 py-4 rounded-full hover:bg-caramelAccent transition shadow-md">
+                        Shop Collection
+                    </a>
+                    <button onclick="openSizeGuide()" class="border border-sandBorder hover:border-caramelAccent bg-beigeBg text-darkEspresso font-mono-code text-xs uppercase tracking-widest px-6 py-4 rounded-full transition">
+                        View Size Guide
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hero Highlight Card -->
+            <div class="lg:col-span-5 flex justify-center">
+                <div class="bg-beigeBg p-6 border border-sandBorder rounded-2xl shadow-xl max-w-sm w-full space-y-4">
+                    <div class="aspect-[4/5] bg-creamCard rounded-xl overflow-hidden relative flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" alt="Featured Garment" class="object-cover w-full h-full">
+                        <span class="absolute top-3 left-3 bg-terracotta text-white font-mono-code text-[10px] px-2.5 py-1 uppercase tracking-wider rounded-full">
+                            Bestseller • R490
+                        </span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-title font-bold text-xl text-darkEspresso">The Essential Linen Top</h3>
+                        <p class="text-xs text-mochaText/70 mt-1 font-body">Breathable 100% natural linen blend.</p>
+                        <button onclick="quickAddHero()" class="w-full mt-4 bg-caramelAccent text-white font-mono-code text-xs uppercase tracking-wider py-3 rounded-xl hover:bg-darkEspresso transition">
+                            Quick Add (Size UK 10 / SA 34)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATALOG SECTION -->
+    <section id="catalog" class="py-16 px-6 lg:px-12 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-sandBorder mb-10">
+            <div>
+                <h2 class="font-serif-title text-3xl lg:text-4xl text-darkEspresso">Ready-To-Wear Catalog</h2>
+                <p class="text-xs font-mono-code text-mochaText/60 mt-1">Select your favorite pieces below</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap items-center gap-2 bg-creamCard p-1 rounded-full border border-sandBorder text-xs font-mono-code">
+                <button onclick="filterCategory('all')" id="btn-all" class="cat-btn px-4 py-1.5 rounded-full bg-darkEspresso text-beigeBg transition">All</button>
+                <button onclick="filterCategory('Dresses')" id="btn-Dresses" class="cat-btn px-4 py-1.5 rounded-full hover:bg-sandBorder/50 transition">Dresses</button>
+                <button onclick="filterCategory('Tops')" id="btn-Tops" class="cat-btn px-4 py-1.5 rounded-full hover:bg-sandBorder/50 transition">Tops</button>
+                <button onclick="filterCategory('Outerwear')" id="btn-Outerwear" class="cat-btn px-4 py-1.5 rounded-full hover:bg-sandBorder/50 transition">Outerwear</button>
+                <button onclick="filterCategory('Bottoms')" id="btn-Bottoms" class="cat-btn px-4 py-1.5 rounded-full hover:bg-sandBorder/50 transition">Bottoms</button>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Injected via JavaScript -->
+        </div>
+    </section>
+
+    <!-- CART DRAWER MODAL -->
+    <div id="cartModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex justify-end">
+        <div class="bg-beigeBg w-full max-w-md h-full flex flex-col justify-between p-6 shadow-2xl border-l border-sandBorder">
+            <div>
+                <div class="flex justify-between items-center pb-4 border-b border-sandBorder">
+                    <h3 class="font-serif-title text-2xl font-bold text-darkEspresso">Your Shopping Bag</h3>
+                    <button onclick="toggleCartModal()" class="p-1 hover:text-caramelAccent"><i data-lucide="x" class="w-6 h-6"></i></button>
+                </div>
+
+                <!-- Free Shipping Progress -->
+                <div id="shippingProgress" class="my-4 bg-creamCard p-3 rounded-xl border border-sandBorder text-xs font-mono-code space-y-2">
+                    <div class="flex justify-between">
+                        <span>Free SA Courier Progress</span>
+                        <span id="shippingText" class="font-bold text-terracotta">R850 needed</span>
+                    </div>
+                    <div class="w-full bg-sandBorder h-2 rounded-full overflow-hidden">
+                        <div id="shippingBar" class="bg-caramelAccent h-full w-0 transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <div id="cartItemsList" class="space-y-4 max-h-[45vh] overflow-y-auto custom-scrollbar pr-2 mt-4">
+                    <!-- Cart items injected here -->
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-sandBorder space-y-3 font-mono-code">
+                <!-- Promo Code Box -->
+                <div class="flex gap-2">
+                    <input type="text" id="promoInput" placeholder="Promo code (e.g. WELCOME10)" class="flex-1 bg-creamCard border border-sandBorder px-3 py-2 text-xs rounded-lg uppercase">
+                    <button onclick="applyPromo()" class="bg-darkEspresso text-beigeBg px-4 py-2 text-xs rounded-lg hover:bg-caramelAccent transition">Apply</button>
+                </div>
+
+                <div class="flex justify-between text-xs">
+                    <span>Subtotal:</span>
+                    <strong id="cartSubtotal" class="text-darkEspresso font-bold">R0.00</strong>
+                </div>
+                <div id="discountRow" class="flex justify-between text-xs text-emerald-600 hidden">
+                    <span>Discount (10%):</span>
+                    <strong id="discountAmount">-R0.00</strong>
+                </div>
+                <div class="flex justify-between text-sm pt-2 border-t border-sandBorder">
+                    <span>Total Amount:</span>
+                    <strong id="cartTotal" class="text-terracotta font-bold text-base">R0.00</strong>
+                </div>
+
+                <button onclick="openCheckout()" class="w-full bg-darkEspresso text-beigeBg text-xs uppercase tracking-widest py-4 rounded-xl hover:bg-caramelAccent transition">
+                    Proceed to Secure Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-beigeBg border border-sandBorder rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 space-y-6">
+            <div class="flex justify-between items-center border-b border-sandBorder pb-4">
+                <h3 class="font-serif-title text-2xl font-bold text-darkEspresso">Checkout & South African Delivery</h3>
+                <button onclick="closeCheckout()" class="p-1 hover:text-caramelAccent"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+
+            <!-- Formspree Endpoint Integration for Phone/Email alerts -->
+            <form id="checkoutForm" action="https://formspree.io/f/your_formspree_endpoint_here" method="POST" onsubmit="handleOrderSubmission(event)" class="space-y-4 text-xs font-mono-code">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block mb-1 font-bold">Full Name</label>
+                        <input type="text" name="customer_name" required class="w-full p-3 bg-creamCard border border-sandBorder rounded-lg focus:outline-none focus:border-caramelAccent">
+                    </div>
+                    <div>
+                        <label class="block mb-1 font-bold">Phone Number (For Courier Tracking)</label>
+                        <input type="tel" name="customer_phone" required placeholder="082 123 4567" class="w-full p-3 bg-creamCard border border-sandBorder rounded-lg focus:outline-none focus:border-caramelAccent">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block mb-1 font-bold">Email Address</label>
+                    <input type="email" name="customer_email" required class="w-full p-3 bg-creamCard border border-sandBorder rounded-lg focus:outline-none focus:border-caramelAccent">
+                </div>
+
+                <div>
+                    <label class="block mb-1 font-bold">Street Address</label>
+                    <input type="text" name="shipping_address" required placeholder="e.g. 14 Sandton Drive" class="w-full p-3 bg-creamCard border border-sandBorder rounded-lg focus:outline-none focus:border-caramelAccent">
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block mb-1 font-bold">City / Town</label>
+                        <input type="text" name="city" required placeholder="Johannesburg" class="w-full p-3 bg-creamCard border border-sandBorder rounded-lg focus:outline-none focus:border-caramelAccent">
+                    </div>
+                    <div>
+                        <label class="block mb-1 font-bold">Province</label>
+                        <select name="province" required class="w-full p-3 bg-creamCard border border-sandBorder rounded-lg focus:outline-none focus:border-caramelAccent">
+                            <option>Gauteng</option>
+                            <option>Western Cape</option>
+                            <option>KwaZulu-Natal</option>
+                            <option>Eastern Cape</option>
+                            <option>Free State</option>
+                            <option>Mpumalanga</option>
+                            <option>Limpopo</option>
+                            <option>North West</option>
+                            <option>Northern Cape</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block mb-1 font-bold">Postal Code</label>
+                        <input type="text" name="postal_code" required placeholder="2196" class="w-full p-3 bg-creamCard border border-sandBorder rounded-lg focus:outline-none focus:border-caramelAccent">
+                    </div>
+                </div>
+
+                <!-- Hidden summary for email notification -->
+                <input type="hidden" id="orderSummaryInput" name="order_summary" value="">
+
+                <div class="pt-4 border-t border-sandBorder">
+                    <label class="block mb-2 font-bold">Secure Payment Gateway (Direct to Your SA Bank Account)</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="flex items-center gap-2 p-3 bg-creamCard border border-sandBorder rounded-lg cursor-pointer">
+                            <input type="radio" name="payment" checked class="accent-caramelAccent">
+                            <span>PayFast (Credit / Debit / EFT)</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-3 bg-creamCard border border-sandBorder rounded-lg cursor-pointer">
+                            <input type="radio" name="payment" class="accent-caramelAccent">
+                            <span>Ozow Instant EFT</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-caramelAccent text-white text-sm uppercase font-bold py-4 rounded-xl hover:bg-darkEspresso transition mt-4">
+                    Complete Order & Pay Securely
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SIZE GUIDE MODAL -->
+    <div id="sizeGuideModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-beigeBg border border-sandBorder rounded-2xl max-w-lg w-full p-6 md:p-8 space-y-6 text-xs font-mono-code">
+            <div class="flex justify-between items-center border-b border-sandBorder pb-3">
+                <h3 class="font-serif-title text-2xl font-bold text-darkEspresso">Size Conversion Guide (UK / SA)</h3>
+                <button onclick="closeSizeGuide()" class="p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <p class="text-mochaText/70 font-body">All Claudia Wilson garments adhere to standard South African/UK sizing specifications.</p>
+            
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-sandBorder text-darkEspresso font-bold">
+                        <th class="py-2">SA / UK Size</th>
+                        <th class="py-2">Bust (cm)</th>
+                        <th class="py-2">Waist (cm)</th>
+                        <th class="py-2">Hips (cm)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-sandBorder/50">
+                    <tr><td class="py-2">Size 6 (XXS)</td><td>80cm</td><td>62cm</td><td>88cm</td></tr>
+                    <tr><td class="py-2">Size 8 (XS)</td><td>84cm</td><td>66cm</td><td>92cm</td></tr>
+                    <tr><td class="py-2">Size 10 (S)</td><td>88cm</td><td>70cm</td><td>96cm</td></tr>
+                    <tr><td class="py-2">Size 12 (M)</td><td>92cm</td><td>74cm</td><td>100cm</td></tr>
+                    <tr><td class="py-2">Size 14 (L)</td><td>98cm</td><td>80cm</td><td>106cm</td></tr>
+                </tbody>
+            </table>
+            <button onclick="closeSizeGuide()" class="w-full bg-darkEspresso text-beigeBg py-3 rounded-xl uppercase font-bold hover:bg-caramelAccent transition">
+                Got It
+            </button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-darkEspresso text-beigeBg py-12 px-6 lg:px-12 border-t border-sandBorder mt-20">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-xs font-mono-code">
+            <div class="space-y-3">
+                <h4 class="font-serif-title text-2xl font-bold text-beigeBg">CLAUDIA WILSON</h4>
+                <p class="text-sandBorder/70 text-[11px] leading-relaxed font-body">Johannesburg design studio creating affordable, high-impact apparel for the modern wardrobe.</p>
+            </div>
+            <div>
+                <h5 class="text-caramelAccent font-bold uppercase tracking-wider mb-3">Customer Service</h5>
+                <ul class="space-y-2 text-sandBorder/80">
+                    <li><button onclick="openSizeGuide()" class="hover:underline">Size Conversion Guide</button></li>
+                    <li><a href="#" class="hover:underline">Nationwide Courier Tracking</a></li>
+                    <li><a href="#" class="hover:underline">Exchanges & Returns</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="text-caramelAccent font-bold uppercase tracking-wider mb-3">Atelier Studio</h5>
+                <p class="text-sandBorder/80">Sandton, Johannesburg<br>Gauteng, 2196<br>South Africa</p>
+            </div>
+            <div>
+                <h5 class="text-caramelAccent font-bold uppercase tracking-wider mb-3">Verified Gateways</h5>
+                <p class="text-sandBorder/80">PayFast • Ozow • Visa • Mastercard</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT APPLICATION CODE -->
+    <script>
+        const products = [
+            { id: 1, name: "Essential Linen Top", category: "Tops", price: 490, image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80", tag: "Popular" },
+            { id: 2, name: "Ribbed Midi Dress", category: "Dresses", price: 650, image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=600&q=80", tag: "New" },
+            { id: 3, name: "Tailored Linen Trousers", category: "Bottoms", price: 720, image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80", tag: "Bestseller" },
+            { id: 4, name: "Cropped Denim Jacket", category: "Outerwear", price: 890, image: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=600&q=80", tag: "Warm" },
+            { id: 5, name: "Cotton Everyday Tee", category: "Tops", price: 320, image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80", tag: "Essential" },
+            { id: 6, name: "Satin Wrap Skirt", category: "Bottoms", price: 580, image: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=600&q=80", tag: "Chic" },
+            { id: 7, name: "Oversized Utility Shirt", category: "Tops", price: 540, image: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?auto=format&fit=crop&w=600&q=80", tag: "Casual" },
+            { id: 8, name: "Lightweight Trench Coat", category: "Outerwear", price: 1250, image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=600&q=80", tag: "Premium" }
+        ];
+
+        let cart = [];
+        let activeCategory = 'all';
+        let discountActive = false;
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            const filtered = activeCategory === 'all' ? products : products.filter(p => p.category === activeCategory);
+
+            grid.innerHTML = filtered.map(product => `
+                <div class="bg-beigeBg border border-sandBorder rounded-2xl p-4 space-y-3 group hover:border-caramelAccent transition">
+                    <div class="aspect-[3/4] bg-creamCard rounded-xl overflow-hidden relative">
+                        <img src="${product.image}" alt="${product.name}" class="object-cover w-full h-full group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-2 left-2 bg-beigeBg/90 backdrop-blur-sm text-darkEspresso text-[10px] font-mono-code px-2.5 py-0.5 rounded-full uppercase">
+                            ${product.tag}
+                        </span>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-[10px] font-mono-code text-caramelAccent uppercase">${product.category}</span>
+                            <h3 class="font-serif-title font-bold text-lg text-darkEspresso">${product.name}</h3>
+                        </div>
+                        <span class="font-mono-code font-bold text-terracotta text-sm">R${product.price}</span>
+                    </div>
+                    <button onclick="addToCart(${product.id})" class="w-full bg-creamCard text-darkEspresso border border-sandBorder font-mono-code text-xs uppercase py-2.5 rounded-xl hover:bg-caramelAccent hover:text-white transition">
+                        Add To Bag
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function filterCategory(cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-darkEspresso', 'text-beigeBg');
+            });
+            document.getElementById(`btn-${cat}`).classList.add('bg-darkEspresso', 'text-beigeBg');
+            renderProducts();
+        }
+
+        function addToCart(id) {
+            const item = products.find(p => p.id === id);
+            const existing = cart.find(c => c.id === id);
+            if (existing) existing.qty++;
+            else cart.push({ ...item, qty: 1 });
+            updateCartUI();
+            toggleCartModal(true);
+            showToast(`Added ${item.name} to your bag`);
+        }
+
+        function quickAddHero() {
+            addToCart(1);
+        }
+
+        function updateCartUI() {
+            const list = document.getElementById('cartItemsList');
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const discount = discountActive ? subtotal * 0.10 : 0;
+            const finalTotal = subtotal - discount;
+
+            document.getElementById('cartCount').innerText = totalCount;
+            document.getElementById('cartSubtotal').innerText = `R${subtotal.toFixed(2)}`;
+            
+            if (discountActive) {
+                document.getElementById('discountRow').classList.remove('hidden');
+                document.getElementById('discountAmount').innerText = `-R${discount.toFixed(2)}`;
+            } else {
+                document.getElementById('discountRow').classList.add('hidden');
+            }
+
+            document.getElementById('cartTotal').innerText = `R${finalTotal.toFixed(2)}`;
+
+            // Shipping Progress Bar
+            const threshold = 850;
+            const percentage = Math.min(100, (subtotal / threshold) * 100);
+            document.getElementById('shippingBar').style.width = `${percentage}%`;
+            document.getElementById('shippingText').innerText = subtotal >= threshold ? "Free Courier Unlocked!" : `R${threshold - subtotal} needed for Free Delivery`;
+
+            // Pack summary for backend notification
+            const summaryString = cart.map(i => `${i.name} (x${i.qty}) - R${i.price * i.qty}`).join(', ') + ` | Total: R${finalTotal.toFixed(2)}`;
+            document.getElementById('orderSummaryInput').value = summaryString;
+
+            if (cart.length === 0) {
+                list.innerHTML = `<p class="text-center text-xs font-mono-code text-mochaText/50 py-8">Your shopping bag is empty.</p>`;
+                return;
+            }
+
+            list.innerHTML = cart.map(item => `
+                <div class="flex gap-3 items-center bg-creamCard p-3 rounded-xl border border-sandBorder">
+                    <img src="${item.image}" class="w-12 h-14 object-cover rounded-lg">
+                    <div class="flex-1 text-xs font-mono-code">
+                        <h4 class="font-bold text-darkEspresso">${item.name}</h4>
+                        <p class="text-terracotta">R${item.price} x ${item.qty}</p>
+                    </div>
+                    <div class="flex items-center gap-2 font-mono-code text-xs">
+                        <button onclick="changeQty(${item.id}, -1)" class="w-6 h-6 bg-beigeBg rounded border border-sandBorder">-</button>
+                        <span>${item.qty}</span>
+                        <button onclick="changeQty(${item.id}, 1)" class="w-6 h-6 bg-beigeBg rounded border border-sandBorder">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(c => c.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) cart = cart.filter(c => c.id !== id);
+            }
+            updateCartUI();
+        }
+
+        function applyPromo() {
+            const code = document.getElementById('promoInput').value.trim().toUpperCase();
+            if (code === "WELCOME10") {
+                discountActive = true;
+                updateCartUI();
+                showToast("10% discount promo code applied!");
+            } else {
+                alert("Invalid promo code. Try WELCOME10");
+            }
+        }
+
+        function toggleCartModal(forceOpen) {
+            const modal = document.getElementById('cartModal');
+            if (forceOpen) modal.classList.remove('hidden');
+            else modal.classList.toggle('hidden');
+        }
+
+        function openCheckout() {
+            if (cart.length === 0) return alert("Your bag is empty!");
+            toggleCartModal(false);
+            document.getElementById('checkoutModal').classList.remove('hidden');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutModal').classList.add('hidden');
+        }
+
+        function openSizeGuide() {
+            document.getElementById('sizeGuideModal').classList.remove('hidden');
+        }
+
+        function closeSizeGuide() {
+            document.getElementById('sizeGuideModal').classList.add('hidden');
+        }
+
+        function handleOrderSubmission(e) {
+            showToast("Redirecting to secure SA gateway...");
+        }
+
+        // Initialize Lucide icons and product grid
+        lucide.createIcons();
+        renderProducts();
+    </script>
+</body>
+</html>
